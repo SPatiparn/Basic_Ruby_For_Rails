@@ -5,13 +5,13 @@ class User
       @name = name
       @email = email
       @password = password
-      @rooms = [] # เก็บห้องที่ผู้ใช้เข้าร่วม
+      @rooms = []
     end
   
     def enter_room(room)
       unless @rooms.include?(room)
         @rooms << room
-        room.add_user(self) # เพิ่มผู้ใช้ในห้อง
+        room.add_user(self) 
         puts "#{@name} has entered the room: #{room.name}"
       else
         puts "#{@name} is already in the room: #{room.name}"
@@ -20,7 +20,7 @@ class User
   
     def send_message(room, content)
       message = Message.new(self, room, content)
-      room.broadcast(message) # ส่งข้อความไปยังห้อง
+      room.broadcast(message) 
     end
   
     def acknowledge_message(room, message)
@@ -34,7 +34,7 @@ class User
     def initialize(name, description)
       @name = name
       @description = description
-      @users = [] # เก็บผู้ใช้ที่เข้าร่วมห้อง
+      @users = [] 
     end
   
     def add_user(user)
@@ -47,7 +47,7 @@ class User
     def broadcast(message)
       puts "Broadcasting message in room: #{@name}"
       @users.each do |user|
-        user.acknowledge_message(self, message) # ให้ผู้ใช้ทุกคนยืนยันข้อความ
+        user.acknowledge_message(self, message) 
       end
     end
   end
@@ -62,16 +62,16 @@ class User
     end
   end
   
-  # ตัวอย่างการใช้งาน
+  
   if __FILE__ == $0
     user1 = User.new("Alice", "alice@example.com", "password123")
     user2 = User.new("Bob", "bob@example.com", "password456")
   
     room = Room.new("General", "This is a general chat room.")
   
-    user1.enter_room(room)  # Alice เข้าห้อง
-    user2.enter_room(room)  # Bob เข้าห้อง
+    user1.enter_room(room)  
+    user2.enter_room(room) 
   
-    user1.send_message(room, "Hello everyone!")  # Alice ส่งข้อความ
+    user1.send_message(room, "Hello everyone!") 
   end
   
